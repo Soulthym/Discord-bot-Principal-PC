@@ -9,7 +9,6 @@ if not Path("./token").is_file():
 with open("./token", "r") as tokenFile:
     ACCESS_TOKEN = tokenFile.readline().strip()
     print("Starting server")
-    print(ACCESS_TOKEN)
 
 client = discord.Client()
 
