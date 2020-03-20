@@ -17,4 +17,4 @@ async def on_message(message):
     if message.content.find("Pong") != -1:
         await message.channel.send("ping") # If the user says !hello we will send 
 
-client.run(TOKEN)
+client.run(ACCESS_TOKEN)
