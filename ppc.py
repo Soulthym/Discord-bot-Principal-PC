@@ -7,11 +7,12 @@ path = './'
 if "/" in __file__:
     path = path + '/'.join(__file__.split('/')[:-1]) + '/'
 print("Running from " + path)
+tokenPath = path+'token'
 
-if not Path(path+"token").is_file():
+if not Path(tokenPath).is_file():
     print("'token' file not found.\nPlease create a file named 'token' in which your access token is written on the first line")
     sys.exit(-1)
-with open("./token", "r") as tokenFile:
+with open(tokenPath, "r") as tokenFile:
     ACCESS_TOKEN = tokenFile.readline().strip()
     print("Starting server")
 
