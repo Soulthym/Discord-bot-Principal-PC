@@ -34,10 +34,12 @@ async def on_message(message):
         arg = msg.popleft()
         if arg in ["ping"]:
             await message.channel.send("Pong!")
+        elif " ".join([arg]+list(msg)) == "ta gueule putain":
+            await message.channel.send("OK Boomer")
+            sys.exit(0)
         elif arg in ["stop",
                      "exit",
                      "restart",
-                     "ta gueule putain",
                      "reboot"]:
             await message.channel.send("Restarting")
             print("Restarting")
