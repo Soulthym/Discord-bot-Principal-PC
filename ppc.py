@@ -23,12 +23,16 @@ client = discord.Client()
 async def on_message(message):
     msg = deque(filter(None, message.content.lower().strip().split(" ")))
     arg = msg.popleft()
-    if arg == "pc":
+    if arg in ["pc",
+               "@Principal PC",
+               "@Principal PC,",
+              ]:
         arg = msg.popleft()
         if arg in ["ping"]:
             await message.channel.send("Pong!")
         if arg in ["restart",
-                   "reboot" ]:
+                   "reboot",
+                  ]:
             await message.channel.send("Restarting")
             print("Restarting")
             sys.exit(0)
