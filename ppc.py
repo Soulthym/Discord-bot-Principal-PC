@@ -1,4 +1,4 @@
-#! /bin/python3
+#! /usr/bin/python3
 import discord
 from pathlib import Path
 import sys
