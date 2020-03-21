@@ -24,8 +24,8 @@ async def on_message(message):
     msg = deque(filter(None, message.content.lower().strip().split(" ")))
     arg = msg.popleft()
     if arg in ["pc",
-               "@Principal PC",
-               "@Principal PC,",
+               "@Principal-PC",
+               "@Principal-PC,",
               ]:
         arg = msg.popleft()
         if arg in ["ping"]:
