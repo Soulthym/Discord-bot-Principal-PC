@@ -2,6 +2,7 @@
 import discord
 from pathlib import Path
 import sys
+from collections import deque
 
 path = './'
 if "/" in __file__:
@@ -22,8 +23,16 @@ client = discord.Client()
 async def on_message(message):
     #if message.content.find("Pong") != -1:
     #    await message.channel.send("ping")
-    if message.content == "PC exit" :
-        await message.channel.send("Exiting")
-        sys.exit(0)
+    msg = deque(message.content.lower().strip().split(" "))
+    arg = msg.popleft()
+    if arg == "pc":
+        arg = msg.popleft()
+        if arg in ["restart",
+                   "reboot" ]:
+            await message.channel.send("Restarting")
+            print("Restarting")
+            sys.exit(0)
+        else:
+            print("PC command found: "+ " ".join([arg]+msg))
 
 client.run(ACCESS_TOKEN)
