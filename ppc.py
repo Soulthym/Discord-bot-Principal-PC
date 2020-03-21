@@ -21,18 +21,18 @@ client = discord.Client()
 
 @client.event
 async def on_message(message):
-    #if message.content.find("Pong") != -1:
-    #    await message.channel.send("ping")
-    msg = deque(message.content.lower().strip().split(" "))
+    msg = deque(filter(None, message.content.lower().strip().split(" ")))
     arg = msg.popleft()
     if arg == "pc":
         arg = msg.popleft()
+        if arg in ["ping"]:
+            await message.channel.send("Pong!")
         if arg in ["restart",
                    "reboot" ]:
             await message.channel.send("Restarting")
             print("Restarting")
             sys.exit(0)
         else:
-            print("PC command found: "+ " ".join([arg]+msg))
+            print("PC command found: "+ " ".join([arg]+list(msg)))
 
 client.run(ACCESS_TOKEN)
