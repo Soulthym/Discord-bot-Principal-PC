@@ -21,21 +21,31 @@ client = discord.Client()
 
 @client.event
 async def on_message(message):
-    msg = deque(filter(None, message.content.lower().strip().split(" ")))
+    msg = deque([arg.strip() for arg in filter(None, message.content.lower().strip().split(" "))])
+    if len(msg) == 0:
+        return
+    print(msg)
     arg = msg.popleft()
     if arg in ["pc",
-               "@Principal-PC",
-               "@Principal-PC,",
-              ]:
+               "<@!690624786333958185>",
+               "<@!690624786333958185>,"]:
+        if len(msg) == 0:
+            return
         arg = msg.popleft()
         if arg in ["ping"]:
             await message.channel.send("Pong!")
-        if arg in ["restart",
-                   "reboot",
-                  ]:
+        elif arg in ["stop",
+                     "exit",
+                     "restart",
+                     "reboot"]:
             await message.channel.send("Restarting")
             print("Restarting")
             sys.exit(0)
+        elif arg == "help":
+            embed = discord.Embed(title="PC Help", description="Help for the Principal-PC Bot")
+            embed.add_field(name="ping", value='Replies "Pong!"')
+            embed.add_field(name="restart|reboot|stop|exit", value="Restarts Principal-PC Bot")
+            await message.channel.send(content=None, embed=embed)
         else:
             print("PC command found: "+ " ".join([arg]+list(msg)))
 
