@@ -24,5 +24,6 @@ async def on_message(message):
         await message.channel.send("ping")
     if message.content == "PC exit" :
         await message.channel.send("Exiting")
+        sys.exit(0)
 
 client.run(ACCESS_TOKEN)
