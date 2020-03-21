@@ -20,8 +20,8 @@ client = discord.Client()
 
 @client.event
 async def on_message(message):
-    if message.content.find("Pong") != -1:
-        await message.channel.send("ping")
+    #if message.content.find("Pong") != -1:
+    #    await message.channel.send("ping")
     if message.content == "PC exit" :
         await message.channel.send("Exiting")
         sys.exit(0)
