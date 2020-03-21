@@ -37,6 +37,7 @@ async def on_message(message):
         elif arg in ["stop",
                      "exit",
                      "restart",
+                     "ta gueule putain",
                      "reboot"]:
             await message.channel.send("Restarting")
             print("Restarting")
