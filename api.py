@@ -85,6 +85,7 @@ class PCBot(discord.Client):
                          "votre" : "notre",
                          "la"    : "notre",
                          "le"    : "notre",
+                         "ce"    : "notre",
                          "mien"  : "nôtre",
                          "tien"  : "nôtre",
                          "sien"  : "nôtre",
@@ -95,10 +96,10 @@ class PCBot(discord.Client):
                          "ses"   : "nos",
                          "vos"   : "nos",
                          "leurs" : "nos",
-                         "les" : "nos",
+                         "les"   : "nos",
+                         "ces"   : "nos",
                         }
             modifiers = [
-                            lambda x: x,
                             lambda x: x.lower(),
                             lambda x: x.upper(),
                             lambda x: x[0].upper()+x[1:]
