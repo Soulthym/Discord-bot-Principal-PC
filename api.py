@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 from parser import *
 from pprint import pprint
+import re
 
 def getPath():
     if '/' in __file__:
@@ -31,6 +32,7 @@ class PCBot(discord.Client):
         cmd = msg.content.lower().strip()
         if cmd.startswith('pc '):
             print('='*10)
+            state = {}
             if client.user.id != msg.author.id:
                 id_list = list(map(lambda c: c.id, filter(lambda c: c.name == self.memory_channel_name,
                                            msg.guild.channels)))
@@ -66,10 +68,52 @@ class PCBot(discord.Client):
             return state, cmd
 
     async def on_message(self, msg):
-        state, cmd = await self.getCommand(msg)
-        print(f'{cmd=}')
-        print(f'state :')
-        pprint(state)
+        #state, cmd = await self.getCommand(msg)
+        cmd = msg.content
+        if client.user.id != msg.author.id and msg.guild.id == 277750916952752130:
+            mappings = {
+                         "moi"   : "nous",
+                         "toi"   : "nous",
+                         "lui"   : "nous",
+                         "eux"   : "nous",
+                         "ma"    : "notre",
+                         "ta"    : "notre",
+                         "sa"    : "notre",
+                         "mon"   : "notre",
+                         "ton"   : "notre",
+                         "son"   : "notre",
+                         "votre" : "notre",
+                         "la"    : "notre",
+                         "le"    : "notre",
+                         "mien"  : "nôtre",
+                         "tien"  : "nôtre",
+                         "sien"  : "nôtre",
+                         "vôtre" : "nôtre",
+                         "leur"  : "nôtre",
+                         "mes"   : "nos",
+                         "tes"   : "nos",
+                         "ses"   : "nos",
+                         "vos"   : "nos",
+                         "leurs" : "nos",
+                         "les" : "nos",
+                        }
+            modifiers = [
+                            lambda x: x,
+                            lambda x: x.lower(),
+                            lambda x: x.upper(),
+                            lambda x: x[0].upper()+x[1:]
+                        ]
+            ans = msg.content
+            for find, subs in mappings.items():
+                for mod in modifiers:
+                    ans = ans.replace(" "+mod(find)+" ", " **"+mod(subs)+"** ")
+            if ans != msg.content:
+                await msg.channel.send(f"{ans}\nNe nous oublions pas camarade!")
+                emoji = discord.utils.get(msg.guild.emojis, name='marx')
+                if emoji:
+                    await msg.add_reaction(emoji)
+            print(f'{cmd=}\n{ans=}')
+        
 
 client = PCBot()
 client.run(ACCESS_TOKEN)
