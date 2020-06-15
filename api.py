@@ -106,7 +106,7 @@ class PCBot(discord.Client):
             ans = msg.content
             for find, subs in mappings.items():
                 for mod in modifiers:
-                    ans = ans.replace(" "+mod(find)+" ", " **"+mod(subs)+"** ")
+                    ans = re.sub(r"\b"+mod(find)+r"\b", "**"+mod(subs)+"**", ans)
             if ans != msg.content:
                 await msg.channel.send("{}\nNe nous oublions pas camarade!".format(ans))
                 emoji = discord.utils.get(msg.guild.emojis, name='marx')
