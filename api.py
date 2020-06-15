@@ -47,14 +47,14 @@ class PCBot(discord.Client):
                                         guild.default_role: discord.PermissionOverwrite(read_messages=False),
                                         guild.me: discord.PermissionOverwrite(read_messages=True)
                                        },
-                            reason=f'{client.user.name}\'s memory channel',
+                            reason='{}\'s memory channel'.format(client.user.name),
                             )
-                    await msg.channel.send(f'Created text channel: #{self.memory_channel_name}')
+                    await msg.channel.send('Created text channel: #{}'.format(self.memory_channel_name))
                 else:
                     async for m in msg.guild.get_channel(memory_channel_id).history(limit=100, oldest_first=True):
                         cell = m.content.lower().strip()
                         if m.id != msg.id and not cell.startswith('$') :
-                            print(f'Invalid text: {cell}')
+                            print('Invalid text: {}'.format(cell))
                             await m.delete()
                     memory_messages = [m.content.strip().lower() 
                                        async for m in msg.guild.get_channel(memory_channel_id).history(limit=100,
@@ -108,11 +108,11 @@ class PCBot(discord.Client):
                 for mod in modifiers:
                     ans = ans.replace(" "+mod(find)+" ", " **"+mod(subs)+"** ")
             if ans != msg.content:
-                await msg.channel.send(f"{ans}\nNe nous oublions pas camarade!")
+                await msg.channel.send("{}\nNe nous oublions pas camarade!".format(ans))
                 emoji = discord.utils.get(msg.guild.emojis, name='marx')
                 if emoji:
                     await msg.add_reaction(emoji)
-            print(f'{cmd=}\n{ans=}')
+            print('cmd={}'.format(cmd))
         
 
 client = PCBot()
