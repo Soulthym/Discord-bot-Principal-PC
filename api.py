@@ -6,6 +6,7 @@ import sys
 from parser import *
 from pprint import pprint
 import re
+import random
 
 def getPath():
     if '/' in __file__:
@@ -109,7 +110,10 @@ class PCBot(discord.Client):
                 for mod in modifiers:
                     ans = re.sub(r"\b"+mod(find)+r"\b", "**"+mod(subs)+"**", ans)
             if ans != msg.content:
-                await msg.channel.send("{}\nNe nous oublions pas camarade!".format(ans))
+                quotes = {"Ne nous oublions pas camarade!",
+                          "Servons notre mère patrie!",
+                         }
+                await msg.channel.send("{}\n{}".format(ans, random.choice(quotes)))
                 emoji = discord.utils.get(msg.guild.emojis, name='marx')
                 if emoji:
                     await msg.add_reaction(emoji)
