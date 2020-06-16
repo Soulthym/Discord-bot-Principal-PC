@@ -121,4 +121,5 @@ class PCBot(discord.Client):
         
 
 client = PCBot()
+print("Server started!")
 client.run(ACCESS_TOKEN)
