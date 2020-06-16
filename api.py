@@ -110,9 +110,9 @@ class PCBot(discord.Client):
                 for mod in modifiers:
                     ans = re.sub(r"\b"+mod(find)+r"\b", "**"+mod(subs)+"**", ans)
             if ans != msg.content:
-                quotes = {"Ne nous oublions pas camarade!",
+                quotes = ["Ne nous oublions pas camarade!",
                           "Servons notre mère patrie!",
-                         }
+                         ]
                 await msg.channel.send("{}\n{}".format(ans, random.choice(quotes)))
                 emoji = discord.utils.get(msg.guild.emojis, name='marx')
                 if emoji:
